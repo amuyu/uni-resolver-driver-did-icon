@@ -46,7 +46,7 @@ The driver recognizes the following environment variables:
 ### `uniresolver_driver_did_icon_network_id`
 
   * The Network ID of a node.
-  * Default value(Testnet): `https://test-ctz.solidwallet.io/api/v3`
+  * Default value(Testnet): `2`
 
 ## Driver Metadata
 
