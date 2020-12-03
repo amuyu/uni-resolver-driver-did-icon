@@ -4,7 +4,7 @@ plugins {
     id 'java'
 }
 
-group = 'com.github.amuyu'
+group = 'uniresolver.driver.did.icon'
 version = '0.1.0'
 sourceCompatibility = '1.8'
 
