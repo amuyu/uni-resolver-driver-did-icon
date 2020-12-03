@@ -1,0 +1,10 @@
+server:
+  port: 8080
+logging:
+  level:
+    uniresolver.driver.did.icon: debug
+network:
+  debug: false
+  nodeUrl: ${uniresolver_driver_did_icon_node_url}
+  didScore: ${uniresolver_driver_did_icon_score_addr}
+  networkId: ${uniresolver_driver_did_icon_network_id}
