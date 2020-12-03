@@ -2,12 +2,12 @@
 
 # Universal Resolver Driver: did:icon
 
-This is a [Universal Resolver](https://github.com/decentralized-identity/universal-resolver/) driver for **did:stack** identifiers.
+This is a [Universal Resolver](https://github.com/decentralized-identity/universal-resolver/) driver for **did:icon** identifiers.
 
 ## Specifications
 
 * [Decentralized Identifiers](https://w3c-ccg.github.io/did-spec/)
-* Blockicon DID Method Specification (missing)
+* [DID Method Spec](https://github.com/icon-project/icon-DID/blob/master/docs/ICON-DID-method.md)
 
 ## Example DIDs
 
@@ -36,17 +36,17 @@ The driver recognizes the following environment variables:
 
   * The JSON-RPC URL of a node.
   * Default value(Testnet): `https://test-ctz.solidwallet.io/api/v3`
- 
+
 ### `uniresolver_driver_did_icon_score_addr`
 
   * The SCORE Address for did.
   * Default value(Testnet): `cx4b4543847d552e6cfbbfa55fbd4a9378534839f9`
-  
+
 ### `uniresolver_driver_did_icon_network_id`
 
   * The Network ID of a node.
   * Default value(Testnet): `https://test-ctz.solidwallet.io/api/v3`
-  
+
 ## Driver Metadata
 
 The driver returns the following metadata in addition to a DID document:
