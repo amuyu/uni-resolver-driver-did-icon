@@ -1,18 +1,20 @@
 package uniresolver.driver.did.icon;
 
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
-@ConfigurationProperties(prefix = "network")
 @Data
-public class IconNetworkConfig {
-    boolean debug;
+public class IconNetwork {
     String nodeUrl;
     String didScore;
     String networkId;
+
+    public BigInteger getNetworkId() {
+        return new BigInteger(networkId);
+    }
 
     public Map<String, Object> getProperties() {
         Map<String, Object> map = new HashMap();

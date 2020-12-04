@@ -10,11 +10,6 @@ import foundation.icon.did.document.AuthenticationProperty;
 import foundation.icon.did.document.Document;
 import foundation.icon.did.document.EncodeType;
 import foundation.icon.did.document.PublicKeyProperty;
-import foundation.icon.icx.IconService;
-import foundation.icon.icx.data.Address;
-import foundation.icon.icx.transport.http.HttpProvider;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -23,10 +18,12 @@ import uniresolver.driver.Driver;
 import uniresolver.result.ResolveResult;
 
 import java.io.IOException;
-import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 
@@ -35,26 +32,11 @@ public class UniResolverService implements Driver {
 
     private static Logger log = LoggerFactory.getLogger(UniResolverService.class);
 
-    private final IconNetworkConfig iconNetworkConfig;
-    private final IconService iconService;
-    private final DidService didService;
+    private NetworkManager networkManager;
 
-    public UniResolverService(IconNetworkConfig iconNetworkConfig) {
-        this.iconNetworkConfig = iconNetworkConfig;
-        log.debug("#### uniresolver_driver_did_icon_node_url=" + iconNetworkConfig.getNodeUrl());
-        log.debug("#### uniresolver_driver_did_icon_score_addr=" + iconNetworkConfig.getDidScore());
-        log.debug("#### uniresolver_driver_did_icon_network_id=" + iconNetworkConfig.getNetworkId());
-
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        HttpLoggingInterceptor.Level level = iconNetworkConfig.isDebug() ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE;
-        logging.setLevel(level);
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(logging)
-                .build();
-
-        this.iconService = new IconService(new HttpProvider(client, iconNetworkConfig.nodeUrl));
-        BigInteger networkId = new BigInteger(iconNetworkConfig.getNetworkId());
-        this.didService = new foundation.icon.did.DidService(iconService, networkId, new Address(iconNetworkConfig.getDidScore()));
+    public UniResolverService(NetworkManager networkManager) {
+        this.networkManager = networkManager;
+        networkManager.initialize();
     }
 
     @Override
@@ -62,12 +44,13 @@ public class UniResolverService implements Driver {
         long start = System.currentTimeMillis();
 
         try {
+            String networkId = findNetworkId(identifier);
+            DidService didService = networkManager.getDidService(networkId);
             Document doc = didService.readDocument(identifier);
             if (doc == null) {
                 log.error("No resolve result for {}", identifier);
                 throw new ResolutionException("No resolve result");
             }
-
 
             long elapsed = System.currentTimeMillis() - start;
             log.debug("DidService.readDocument() returned. elapsed time:{} ms", elapsed);
@@ -92,7 +75,19 @@ public class UniResolverService implements Driver {
 
     @Override
     public Map<String, Object> properties() throws ResolutionException {
-        return iconNetworkConfig.getProperties();
+        Map<String, Object> properties = new HashMap<>();
+
+        String uniresolver_driver_did_icon_node_url = System.getenv("uniresolver_driver_did_icon_node_url");
+        if (uniresolver_driver_did_icon_node_url != null)
+            properties.put("uniresolver_driver_did_icon_node_url", uniresolver_driver_did_icon_node_url);
+        String uniresolver_driver_did_icon_score_addr = System.getenv("uniresolver_driver_did_icon_score_addr");
+        if (uniresolver_driver_did_icon_score_addr != null)
+            properties.put("uniresolver_driver_did_icon_score_addr", uniresolver_driver_did_icon_score_addr);
+        String uniresolver_driver_did_icon_network_id = System.getenv("uniresolver_driver_did_icon_network_id");
+        if (uniresolver_driver_did_icon_network_id != null)
+            properties.put("uniresolver_driver_did_icon_network_id", uniresolver_driver_did_icon_network_id);
+
+        return properties;
     }
 
     /**
@@ -142,6 +137,23 @@ public class UniResolverService implements Driver {
         }
         String publicKey = iconAuth.getPublicKey();
         return Authentication.build(null, types, publicKey);
+    }
+
+    String findNetworkId(String did) throws ResolutionException {
+        Pattern p = Pattern.compile("^did:icon:(.+):.+$");
+        Matcher matcher = p.matcher(did);
+        if (matcher.find()) {
+            try {
+                String networkId = matcher.group(1);
+                if (networkId != null) {
+                    return networkId;
+                }
+            } catch (Exception e) {
+                log.error("Could not find networkId. did : {}, msg: {}", did, e.getMessage());
+            }
+        }
+
+        throw new ResolutionException("Could not find networkId");
     }
 
 

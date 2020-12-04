@@ -3,8 +3,18 @@ server:
 logging:
   level:
     uniresolver.driver.did.icon: debug
-network:
+app:
   debug: false
-  nodeUrl: ${uniresolver_driver_did_icon_node_url}
-  didScore: ${uniresolver_driver_did_icon_score_addr}
-  networkId: ${uniresolver_driver_did_icon_network_id}
+  networks:
+    -
+      nodeUrl: https://ctz.solidwallet.io/api/v3
+      didScore: cx694e8c9f1a05c8c3719f30d46b97697960e4289e
+      networkId: 1
+    -
+      nodeUrl: https://test-ctz.solidwallet.io/api/v3
+      didScore: cx8b19bdb4e1ad3e10b599d8887dd256e02995f340
+      networkId: 2
+    -
+      nodeUrl: ${uniresolver_driver_did_icon_node_url}
+      didScore: ${uniresolver_driver_did_icon_score_addr}
+      networkId: ${uniresolver_driver_did_icon_network_id}

@@ -13,7 +13,8 @@ This is a [Universal Resolver](https://github.com/decentralized-identity/univers
 ## Example DIDs
 
 ```
-did:icon:02:fcff15c4fd26b961031264005e2fd8a12404153fd8774f0a
+did:icon:01:64aa0a2a479cb47afbf2d18d6f9f216bcdcbecdda27ccba3
+did:icon:02:6f7a00a29deb82cb36d501d687c18bad79a8f1c154ef0c78
 ```
 
 ## Build and Run (Docker)
@@ -21,7 +22,7 @@ did:icon:02:fcff15c4fd26b961031264005e2fd8a12404153fd8774f0a
 ```
 docker build -f ./docker/Dockerfile . -t amuyu/driver-did-icon
 docker run -p 8080:8080 amuyu/driver-did-icon
-curl -X GET http://localhost:8080/1.0/identifiers/did:icon:02:fcff15c4fd26b961031264005e2fd8a12404153fd8774f0a
+curl -X GET http://localhost:8080/1.0/identifiers/did:icon:02:6f7a00a29deb82cb36d501d687c18bad79a8f1c154ef0c78
 ```
 
 ## Build (native Java)
@@ -41,7 +42,7 @@ The driver recognizes the following environment variables:
 ### `uniresolver_driver_did_icon_score_addr`
 
   * The SCORE Address for did.
-  * Default value(Testnet): `cx4b4543847d552e6cfbbfa55fbd4a9378534839f9`
+  * Default value(Testnet): `cx8b19bdb4e1ad3e10b599d8887dd256e02995f340`
 
 ### `uniresolver_driver_did_icon_network_id`
 
