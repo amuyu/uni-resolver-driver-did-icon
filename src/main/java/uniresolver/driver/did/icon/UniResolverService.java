@@ -69,8 +69,8 @@ public class UniResolverService implements Driver {
             methodMetadata.put("scoreAddress", iconNetwork.getDidScore());
             // service name
             Map<String, Object> serviceMetadata = new LinkedHashMap<>();
-            methodMetadata.put("id", "ZZEUNG");
-            methodMetadata.put("serviceEndpoint", "https://zzeung.id/#/");
+            serviceMetadata.put("id", "ZZEUNG");
+            serviceMetadata.put("serviceEndpoint", "https://zzeung.id/#/");
             methodMetadata.put("service", serviceMetadata);
 
             ResolveResult resolveResult = ResolveResult.build(didDocument);
