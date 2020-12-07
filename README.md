@@ -1,9 +1,12 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)  
 ![DIF Logo](https://raw.githubusercontent.com/decentralized-identity/decentralized-identity.github.io/master/images/logo-small.png)
 
-# Universal Resolver Driver: did:icon
+# Universal Resolver Driver: did:icon for zzeung service
 
 This is a [Universal Resolver](https://github.com/decentralized-identity/universal-resolver/) driver for **did:icon** identifiers.
+
+This driver is for identifiers using zzeung service.
+
 
 ## Specifications
 

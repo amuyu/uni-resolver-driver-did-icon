@@ -18,10 +18,7 @@ import uniresolver.driver.Driver;
 import uniresolver.result.ResolveResult;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -64,9 +61,24 @@ public class UniResolverService implements Driver {
             List<did.Service> services = new ArrayList<>();
             DIDDocument didDocument = DIDDocument.build(identifier, publicKeyList, authList, services);
 
+            IconNetwork iconNetwork = networkManager.getIconNetwork(networkId);
+
+            // document metadata
+            Map<String, Object> methodMetadata = new LinkedHashMap<>();
+            methodMetadata.put("nodeUrl", iconNetwork.getNodeUrl());
+            methodMetadata.put("scoreAddress", iconNetwork.getDidScore());
+            // service name
+            Map<String, Object> serviceMetadata = new LinkedHashMap<>();
+            methodMetadata.put("id", "ZZEUNG");
+            methodMetadata.put("serviceEndpoint", "https://zzeung.id/#/");
+            methodMetadata.put("service", serviceMetadata);
+
+            ResolveResult resolveResult = ResolveResult.build(didDocument);
+            resolveResult.setMethodMetadata(methodMetadata);
+
             elapsed = System.currentTimeMillis() - start;
             log.debug("{} resolved. elapsed time:{} ms", identifier, elapsed);
-            return ResolveResult.build(didDocument);
+            return resolveResult;
 
         } catch (IOException e) {
             throw new ResolutionException(e.getMessage(), e);
