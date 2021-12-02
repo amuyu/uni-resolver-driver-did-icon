@@ -1,0 +1,5 @@
+### 1. sejong testnet DID 조회
+GET http://localhost:8080/1.0/identifiers/did:icon:53:85b0b264ecae5cc82ba517145f9f2d444ab954e8028ce155
+
+### 2. mainet DID 조회
+GET http://localhost:8080/1.0/identifiers/did:icon:01:85565cb9c07061d04ffa35356a47dd3d4e7a8b0ffba2e9b9

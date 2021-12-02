@@ -16,9 +16,9 @@ COPY --from=builder /opt/driver-did-icon/build/libs/*.jar app.jar
 
 # variables
 
-ENV uniresolver_driver_did_icon_node_url=https://test-ctz.solidwallet.io/api/v3
-ENV uniresolver_driver_did_icon_score_addr=cx8b19bdb4e1ad3e10b599d8887dd256e02995f340
-ENV uniresolver_driver_did_icon_network_id=2
+ENV uniresolver_driver_did_icon_node_url=https://sejong.net.solidwallet.io/api/v3
+ENV uniresolver_driver_did_icon_score_addr=cxc7c8b0bb85eca64aecc8cc38628c4bc3c449f1fd
+ENV uniresolver_driver_did_icon_network_id=83
 
 # done
 

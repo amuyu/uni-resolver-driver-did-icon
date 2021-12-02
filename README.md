@@ -17,7 +17,7 @@ This driver is for identifiers using zzeung service.
 
 ```
 did:icon:01:64aa0a2a479cb47afbf2d18d6f9f216bcdcbecdda27ccba3
-did:icon:02:6f7a00a29deb82cb36d501d687c18bad79a8f1c154ef0c78
+did:icon:53:85b0b264ecae5cc82ba517145f9f2d444ab954e8028ce155
 ```
 
 ## Build and Run (Docker)
@@ -25,7 +25,7 @@ did:icon:02:6f7a00a29deb82cb36d501d687c18bad79a8f1c154ef0c78
 ```
 docker build -f ./docker/Dockerfile . -t amuyu/driver-did-icon
 docker run -p 8080:8080 amuyu/driver-did-icon
-curl -X GET http://localhost:8080/1.0/identifiers/did:icon:02:6f7a00a29deb82cb36d501d687c18bad79a8f1c154ef0c78
+curl -X GET http://localhost:8080/1.0/identifiers/did:icon:01:64aa0a2a479cb47afbf2d18d6f9f216bcdcbecdda27ccba3
 ```
 
 ## Build (native Java)
@@ -40,17 +40,17 @@ The driver recognizes the following environment variables:
 ### `uniresolver_driver_did_icon_node_url`
 
   * The JSON-RPC URL of a node.
-  * Default value(Testnet): `https://test-ctz.solidwallet.io/api/v3`
+  * Default value(Sejong testnet): `https://sejong.net.solidwallet.io/api/v3`
 
 ### `uniresolver_driver_did_icon_score_addr`
 
   * The SCORE Address for did.
-  * Default value(Testnet): `cx8b19bdb4e1ad3e10b599d8887dd256e02995f340`
+  * Default value(Sejong testnet): `cxc7c8b0bb85eca64aecc8cc38628c4bc3c449f1fd`
 
 ### `uniresolver_driver_did_icon_network_id`
 
   * The Network ID of a node.
-  * Default value(Testnet): `2`
+  * Default value(Sejong testnet): `83 (0x53)`
 
 ## Driver Metadata
 

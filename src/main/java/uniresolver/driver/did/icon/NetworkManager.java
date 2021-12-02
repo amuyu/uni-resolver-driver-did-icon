@@ -37,17 +37,17 @@ public class NetworkManager {
         log.debug("Icon-network has been initialized.");
     }
 
-    public IconNetwork getIconNetwork(String networkId) throws ResolutionException {
-        BigInteger nid = new BigInteger(networkId);
+    public IconNetwork getIconNetwork(String hexNetworkId) throws ResolutionException {
+        BigInteger nid = new BigInteger(hexNetworkId, 16);
         if (!networkMap.containsKey(nid)) {
-            log.error("Could not find network for {}", networkId);
+            log.error("Could not find network for {}", hexNetworkId);
             throw new ResolutionException("Could not find network");
         }
         return networkMap.get(nid);
     }
 
-    public DidService getDidService(String networkId) throws ResolutionException {
-        IconNetwork network = getIconNetwork(networkId);
+    public DidService getDidService(String hexNetworkId) throws ResolutionException {
+        IconNetwork network = getIconNetwork(hexNetworkId);
         return createDidService(network.getNodeUrl(), network.getNetworkId(), network.getDidScore());
     }
 
